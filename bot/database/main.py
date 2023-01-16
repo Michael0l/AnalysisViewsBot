@@ -35,7 +35,6 @@ class Database:
         async with aiosqlite.connect(config.db_path) as db:
             ex = await db.execute("SELECT admin FROM users WHERE user_id = ?", (user_id,))
             return await ex.fetchone()
-            
 
     async def add_channel(self, channel_id, username, good_views, view_check, time_check):
         async with aiosqlite.connect(config.db_path) as db:
@@ -57,7 +56,6 @@ class Database:
             else:
                 print('Не сохр', channel_id, post_id, view)
 
-
     async def get_all_tracked_post_channel(self, channel_id):
         async with aiosqlite.connect(config.db_path) as db:
             ex = await db.execute("SELECT id, post_id FROM tracked_posts WHERE channel_id = ?", (channel_id, ))
@@ -72,7 +70,6 @@ class Database:
         async with aiosqlite.connect(config.db_path) as db:
             await db.execute("UPDATE tracked_posts SET view = ? WHERE channel_id = ? AND post_id = ?", (view, channel_id, post_id))
             await db.commit()
-
 
     async def del_view_tracked_post(self, channel_id, post_id):
         async with aiosqlite.connect(config.db_path) as db:
